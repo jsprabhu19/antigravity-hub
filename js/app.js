@@ -17,6 +17,7 @@ import { initSearchPalette } from './components/search-bar.js';
 import { renderIdeasGenerator } from './components/ideas-generator.js';
 import { initThemeToggle } from './components/theme-toggle.js';
 import { showToast } from './components/toast.js';
+import { renderDocsBrowser } from './components/docs.js';
 
 // Application State
 const state = {
@@ -26,6 +27,7 @@ const state = {
   activeTutorialStep: 0,
   activeTrendCategory: 'All',
   activeIdeaFilters: { level: 'Beginner', category: 'All' },
+  activeDocsPageId: 'welcome',
   completedTutorials: JSON.parse(localStorage.getItem('completed_tutorials')) || []
 };
 
@@ -52,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderIdeas();
   renderTutorials();
   renderTrends();
+  renderDocs();
   
   // Reset Progress Event Handler
   const resetBtn = document.getElementById('reset-progress-btn');
@@ -96,7 +99,7 @@ function handleHashRoute() {
   const hash = window.location.hash.substring(1);
   if (hash) {
     // If routing to a major section
-    const sections = ['hero', 'guide', 'ecosystem', 'ideas', 'tutorials', 'trends'];
+    const sections = ['hero', 'guide', 'ecosystem', 'ideas', 'tutorials', 'trends', 'docs'];
     if (sections.includes(hash)) {
       navigateToSection(hash);
     }
@@ -286,4 +289,17 @@ function renderTrends() {
   );
   
   trendsWrapper.appendChild(feedElement);
+}
+
+// Render Antigravity Documentation Browser
+function renderDocs() {
+  const wrapper = document.getElementById('docs-browser-wrapper');
+  if (!wrapper) return;
+  
+  wrapper.innerHTML = '';
+  const browser = renderDocsBrowser(state.activeDocsPageId, (selectedPageId) => {
+    state.activeDocsPageId = selectedPageId;
+    renderDocs();
+  });
+  wrapper.appendChild(browser);
 }
