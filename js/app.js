@@ -3,6 +3,7 @@ import { antigravityGuideData } from './data/antigravity-guide.js';
 import { ecosystemData } from './data/ecosystem-data.js';
 import { tutorialsData } from './data/tutorials.js';
 import { trendsData } from './data/trends.js';
+import { ideasData } from './data/ideas-data.js';
 
 import { initAnimations } from './animations.js';
 import { initHero } from './components/hero.js';
@@ -13,6 +14,9 @@ import { renderEcosystemMap } from './components/ecosystem-map.js';
 import { renderTutorialsList, renderTutorialStepper } from './components/tutorial-stepper.js';
 import { renderTrendsFeed } from './components/trends-feed.js';
 import { initSearchPalette } from './components/search-bar.js';
+import { renderIdeasGenerator } from './components/ideas-generator.js';
+import { initThemeToggle } from './components/theme-toggle.js';
+import { showToast } from './components/toast.js';
 
 // Application State
 const state = {
@@ -20,13 +24,16 @@ const state = {
   activeEcosystemId: 'gemini-flash',
   activeTutorialId: 'first-agy-session',
   activeTutorialStep: 0,
-  activeTrendCategory: 'All'
+  activeTrendCategory: 'All',
+  activeIdeaFilters: { level: 'Beginner', category: 'All' },
+  completedTutorials: JSON.parse(localStorage.getItem('completed_tutorials')) || []
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize core system utilities & animations
   initAnimations();
   initHero();
+  initThemeToggle();
   
   // Wire navigation triggers
   initNavbar(navigateToSection);
@@ -42,8 +49,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Render initial static and dynamic parts
   renderGuideCards();
   renderEcosystem();
+  renderIdeas();
   renderTutorials();
   renderTrends();
+  
+  // Reset Progress Event Handler
+  const resetBtn = document.getElementById('reset-progress-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear your completion progress and search history?')) {
+        localStorage.removeItem('completed_tutorials');
+        localStorage.removeItem('recent_searches');
+        ideasData.forEach(idea => {
+          localStorage.removeItem(`idea_progress_${idea.id}`);
+        });
+        
+        state.completedTutorials = [];
+        state.activeTutorialId = 'first-agy-session';
+        state.activeTutorialStep = 0;
+        state.activeIdeaFilters = { level: 'Beginner', category: 'All' };
+        
+        renderIdeas();
+        renderTutorials();
+        showToast('All progress has been reset.', 'info');
+      }
+    });
+  }
   
   // 3. Process initial hash route if present
   handleHashRoute();
@@ -65,7 +96,7 @@ function handleHashRoute() {
   const hash = window.location.hash.substring(1);
   if (hash) {
     // If routing to a major section
-    const sections = ['hero', 'guide', 'ecosystem', 'tutorials', 'trends'];
+    const sections = ['hero', 'guide', 'ecosystem', 'ideas', 'tutorials', 'trends'];
     if (sections.includes(hash)) {
       navigateToSection(hash);
     }
@@ -159,6 +190,29 @@ function renderEcosystem() {
   mapWrapper.appendChild(mapElement);
 }
 
+// Render Interactive Ideas Generator
+function renderIdeas() {
+  const ideasWrapper = document.getElementById('ideas-generator-wrapper');
+  if (!ideasWrapper) return;
+  
+  ideasWrapper.innerHTML = '';
+  
+  const ideasElement = renderIdeasGenerator(
+    ideasData,
+    state.activeIdeaFilters,
+    (filterType, filterVal) => {
+      if (filterType === 'level') {
+        state.activeIdeaFilters.level = filterVal;
+      } else {
+        state.activeIdeaFilters.category = filterVal;
+      }
+      renderIdeas();
+    }
+  );
+  
+  ideasWrapper.appendChild(ideasElement);
+}
+
 // Render Interactive Tutorials
 function renderTutorials() {
   const tutorialsWrapper = document.getElementById('tutorials-layout-wrapper');
@@ -169,8 +223,8 @@ function renderTutorials() {
   const activeTutorial = tutorialsData.find(t => t.id === state.activeTutorialId);
   if (!activeTutorial) return;
   
-  // Create sidebar list
-  const listElement = renderTutorialsList(tutorialsData, state.activeTutorialId, (selectedId) => {
+  // Create sidebar list (pass completed list)
+  const listElement = renderTutorialsList(tutorialsData, state.activeTutorialId, state.completedTutorials, (selectedId) => {
     state.activeTutorialId = selectedId;
     state.activeTutorialStep = 0;
     renderTutorials();
@@ -185,7 +239,16 @@ function renderTutorials() {
       renderTutorials();
     },
     () => {
-      // Completed! Switch to next tutorial if available
+      // Completed! Add to completed list and save
+      if (!state.completedTutorials.includes(activeTutorial.id)) {
+        state.completedTutorials.push(activeTutorial.id);
+        localStorage.setItem('completed_tutorials', JSON.stringify(state.completedTutorials));
+      }
+      
+      // Re-render immediately to update checkmarks
+      renderTutorials();
+      
+      // Switch to next tutorial if available
       const currentIdx = tutorialsData.findIndex(t => t.id === state.activeTutorialId);
       if (currentIdx < tutorialsData.length - 1) {
         state.activeTutorialId = tutorialsData[currentIdx + 1].id;

@@ -42,6 +42,51 @@
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Light Theme overrides */
+.light-theme {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-glass: rgba(241, 245, 249, 0.75);
+  --bg-glass-hover: rgba(226, 232, 240, 0.85);
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-color-hover: rgba(79, 143, 247, 0.4);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  
+  --gradient-glow: radial-gradient(circle at 50% 50%, rgba(79, 143, 247, 0.06) 0%, transparent 60%);
+}
+
+.light-theme .bg-glow-1 {
+  background: radial-gradient(circle, rgba(79, 143, 247, 0.04) 0%, transparent 70%);
+}
+
+.light-theme .bg-glow-2 {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.04) 0%, transparent 70%);
+}
+
+.light-theme .orbit-ring {
+  border-color: rgba(15, 23, 42, 0.06);
+}
+
+.light-theme .orbital-viewport {
+  background: radial-gradient(circle, rgba(79, 143, 247, 0.02) 0%, rgba(248, 250, 252, 1) 80%);
+}
+
+.light-theme .hero-title {
+  background: linear-gradient(135deg, #0f172a 40%, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.light-theme .brand-text {
+  background: linear-gradient(135deg, #0f172a 30%, var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
 /* Base Styles & Resets */
 * {
   box-sizing: border-box;
@@ -1779,3 +1824,47 @@ code {
     padding: 0 1rem;
   }
 }
+
+/* Project Ideas Generator Styles */
+.ideas-roadmap-card {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(168, 85, 247, 0.05);
+}
+
+.roadmap-checkbox-item:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.roadmap-cb {
+  position: relative;
+  appearance: none;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  transition: var(--transition-fast);
+}
+
+.roadmap-cb:checked {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+.roadmap-cb:checked::after {
+  content: '\2714';
+  font-size: 10px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 1024px) {
+  .ideas-split-layouts {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+}
+

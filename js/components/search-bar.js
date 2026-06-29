@@ -65,9 +65,7 @@ export function initSearchPalette(data, onResultSelect) {
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.trim().toLowerCase();
     if (!query) {
-      resultsContainer.innerHTML = '<div style="text-align:center; padding:2rem 0; color:var(--text-muted)">Type a query to begin searching.</div>';
-      flatResults = [];
-      selectedIndex = -1;
+      showRecentSearches();
       return;
     }
     
@@ -95,12 +93,50 @@ export function initSearchPalette(data, onResultSelect) {
     }
   });
   
+  function showRecentSearches() {
+    const recent = JSON.parse(localStorage.getItem('recent_searches')) || [];
+    if (recent.length === 0) {
+      resultsContainer.innerHTML = '<div style="text-align:center; padding:2rem 0; color:var(--text-muted)">Type a query to begin searching.</div>';
+      flatResults = [];
+      selectedIndex = -1;
+      return;
+    }
+    
+    resultsContainer.innerHTML = '';
+    flatResults = [];
+    selectedIndex = -1;
+    
+    const groupDiv = document.createElement('div');
+    groupDiv.className = 'search-group';
+    groupDiv.innerHTML = '<div class="search-group-title">Recent Searches</div>';
+    
+    recent.forEach((itemText) => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'search-item';
+      itemDiv.innerHTML = `
+        <div class="search-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+        </div>
+        <div class="search-item-content">
+          <span class="search-item-title">${itemText}</span>
+        </div>
+      `;
+      
+      itemDiv.addEventListener('click', () => {
+        searchInput.value = itemText;
+        performSearch(itemText);
+      });
+      
+      groupDiv.appendChild(itemDiv);
+    });
+    
+    resultsContainer.appendChild(groupDiv);
+  }
+
   function openModal() {
     overlay.style.display = 'flex';
     searchInput.value = '';
-    resultsContainer.innerHTML = '<div style="text-align:center; padding:2rem 0; color:var(--text-muted)">Type a query to begin searching.</div>';
-    flatResults = [];
-    selectedIndex = -1;
+    showRecentSearches();
     setTimeout(() => searchInput.focus(), 50);
     document.body.style.overflow = 'hidden'; // Lock scroll
   }
@@ -226,6 +262,13 @@ export function initSearchPalette(data, onResultSelect) {
   }
   
   function selectResult(item) {
+    // Save to recent searches
+    let recent = JSON.parse(localStorage.getItem('recent_searches')) || [];
+    recent = recent.filter(q => q !== item.title); // remove duplicates
+    recent.unshift(item.title); // prepend
+    if (recent.length > 5) recent.pop(); // limit to 5
+    localStorage.setItem('recent_searches', JSON.stringify(recent));
+
     closeModal();
     onResultSelect(item);
     showToast(`Navigated to ${item.title}`, 'info');

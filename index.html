@@ -34,6 +34,7 @@
         <div class="nav-item active" data-section="hero">Overview</div>
         <div class="nav-item" data-section="guide">Guide</div>
         <div class="nav-item" data-section="ecosystem">Ecosystem</div>
+        <div class="nav-item" data-section="ideas">Ideas</div>
         <div class="nav-item" data-section="tutorials">Tutorials</div>
         <div class="nav-item" data-section="trends">Trends</div>
       </nav>
@@ -43,6 +44,10 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.602 10.602Z" /></svg>
           <span>Search...</span>
           <kbd>Ctrl+K</kbd>
+        </button>
+        
+        <button id="theme-toggle-btn" class="search-trigger" style="padding: 0.5rem; display: flex; align-items: center; justify-content: center;" aria-label="Toggle Light/Dark Theme">
+          <!-- Loaded dynamically -->
         </button>
         
         <!-- Mobile hamburger -->
@@ -69,6 +74,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9s2.015-9 4.5-9m0 0a9.003 9.003 0 0 1 8.716 5.253M12 3a9.003 9.003 0 0 0-8.716 5.253M12 3v18" /></svg>
             Ecosystem Map
           </li>
+          <li class="sidebar-nav-item" data-section="ideas">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.467 5.99 5.99 0 0 0-1.925 3.546 5.974 5.974 0 0 1-2.133-1A3.75 3.75 0 0 0 12 18Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Z" /></svg>
+            Project Ideas
+          </li>
           <li class="sidebar-nav-item" data-section="tutorials">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M22.25 9.375a1.125 1.125 0 1 0-2.25 0 1.125 1.125 0 0 0 2.25 0Zm0 0v7.5m-12-7.5v15" /></svg>
             Interactive Tutorials
@@ -80,8 +89,9 @@
         </ul>
       </div>
       
-      <div style="position:absolute; bottom:2rem; left:1.5rem; right:1.5rem; text-align:center; font-size:0.75rem; color:var(--text-muted);">
-        Powered by Gemini 3.5 & GSAP
+      <div style="position:absolute; bottom:1.5rem; left:1.5rem; right:1.5rem; text-align:center; font-size:0.75rem; color:var(--text-muted); display:flex; flex-direction:column; gap:0.5rem; align-items:center;">
+        <button id="reset-progress-btn" style="background:transparent; border:1px solid var(--border-color); color:var(--text-muted); padding:0.25rem 0.5rem; border-radius:4px; font-size:0.7rem; cursor:pointer; transition:var(--transition-fast);" onmouseover="this.style.color='var(--accent-red)'; this.style.borderColor='rgba(239,68,68,0.3)';" onmouseout="this.style.color=''; this.style.borderColor='';" title="Clear all completed tutorials and search history">Reset Progress</button>
+        <div>Powered by Gemini 3.5 & GSAP</div>
       </div>
     </aside>
 
@@ -155,6 +165,20 @@
         <!-- Orbit Viewport wrapper -->
         <div id="ecosystem-map-wrapper">
           <!-- Concentric map injected here -->
+        </div>
+      </section>
+
+      <!-- Interactive Ideas Generator & Project Roadmaps -->
+      <section id="ideas" style="padding-top: 5rem;">
+        <div class="section-header">
+          <span class="section-tag">Conceptual Architecture</span>
+          <h2 class="section-title">Project Ideas & Roadmaps</h2>
+          <p class="section-desc">Generate conceptual project ideas ranging from basic CLI utility tools to expert-level spatial agents, complete with step-by-step architectural timelines and starter code templates.</p>
+        </div>
+        
+        <!-- Ideas Generator UI Container -->
+        <div id="ideas-generator-wrapper">
+          <!-- Injected dynamically -->
         </div>
       </section>
 
