@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity Hub — Master Google AI Ecosystem & Agentic Workflows</title>
+  
+  <!-- SEO & Open Graph Meta Tags -->
+  <meta name="description" content="An interactive learning hub for Google Antigravity, featuring developer TUI guides, desktop workflows, VS Code IDE integrations, Python SDK details, and real-time AI trends.">
+  <meta name="keywords" content="Google Antigravity, Agentic AI, AI Studio, Vertex AI, Gemini 3.5, TUI agy, Model Context Protocol, MCP, AI Coding Agent">
+  <meta property="og:title" content="Antigravity Hub — Interactive AI Agent Learning Platform">
+  <meta property="og:description" content="Discover, practice, and master Google Antigravity and the broader Google AI ecosystem with custom timelines, orbital diagrams, and dynamic news trackers.">
+  <meta property="og:type" content="website">
+  
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Ambient background glow particles -->
+  <div class="bg-glow-container">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+  </div>
+
+  <div id="app-layout">
+    <!-- Top Frosted Glass Navbar -->
+    <header>
+      <div class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <div class="brand-logo">AG</div>
+        <div class="brand-text">Antigravity Hub</div>
+      </div>
+      
+      <nav class="nav-links">
+        <div class="nav-item active" data-section="hero">Overview</div>
+        <div class="nav-item" data-section="guide">Guide</div>
+        <div class="nav-item" data-section="ecosystem">Ecosystem</div>
+        <div class="nav-item" data-section="tutorials">Tutorials</div>
+        <div class="nav-item" data-section="trends">Trends</div>
+      </nav>
+      
+      <div class="header-actions">
+        <button class="search-trigger" aria-label="Open Search Command Palette">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.602 10.602Z" /></svg>
+          <span>Search...</span>
+          <kbd>Ctrl+K</kbd>
+        </button>
+        
+        <!-- Mobile hamburger -->
+        <button id="mobile-menu-toggle" style="background:transparent; border:none; color:var(--text-primary); cursor:pointer; display:none;" aria-label="Toggle Navigation Sidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Collapsible sidebar navigation -->
+    <aside>
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-title">Hub Navigation</div>
+        <ul class="sidebar-nav-list">
+          <li class="sidebar-nav-item active" data-section="hero">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+            Overview
+          </li>
+          <li class="sidebar-nav-item" data-section="guide">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>
+            Antigravity Guide
+          </li>
+          <li class="sidebar-nav-item" data-section="ecosystem">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9s2.015-9 4.5-9m0 0a9.003 9.003 0 0 1 8.716 5.253M12 3a9.003 9.003 0 0 0-8.716 5.253M12 3v18" /></svg>
+            Ecosystem Map
+          </li>
+          <li class="sidebar-nav-item" data-section="tutorials">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M22.25 9.375a1.125 1.125 0 1 0-2.25 0 1.125 1.125 0 0 0 2.25 0Zm0 0v7.5m-12-7.5v15" /></svg>
+            Interactive Tutorials
+          </li>
+          <li class="sidebar-nav-item" data-section="trends">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" /></svg>
+            Trends Tracker
+          </li>
+        </ul>
+      </div>
+      
+      <div style="position:absolute; bottom:2rem; left:1.5rem; right:1.5rem; text-align:center; font-size:0.75rem; color:var(--text-muted);">
+        Powered by Gemini 3.5 & GSAP
+      </div>
+    </aside>
+
+    <!-- Main Workspace Content Panels -->
+    <main>
+      <!-- Hero Overview Landing -->
+      <section id="hero">
+        <canvas id="particle-canvas"></canvas>
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span></span>
+            Antigravity TUI 2.0 Live
+          </div>
+          <h1 class="hero-title">Master Google Antigravity & the AI Ecosystem</h1>
+          <p class="hero-subtitle">The definitive developer portal to build, orchestrate, and deploy autonomous coding agents using advanced Gemini models, custom skills, and Model Context Protocol (MCP) integrations.</p>
+          <div class="hero-ctas">
+            <button class="btn btn-primary" id="btn-start-learning">
+              <span>Start Learning</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+            </button>
+            <button class="btn btn-secondary" id="btn-explore-trends">
+              <span>Explore Trends</span>
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-val" data-target="4">0</div>
+              <div class="stat-lbl">Surfaces</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val" data-target="40">0+</div>
+              <div class="stat-lbl">Science Skills</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val" data-target="7">0</div>
+              <div class="stat-lbl">Built-in Plugins</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val" data-target="100">0%</div>
+              <div class="stat-lbl">Agentic Accuracy</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Complete Antigravity Guide -->
+      <section id="guide" style="padding-top: 5rem;">
+        <div class="section-header">
+          <span class="section-tag">Feature Catalog</span>
+          <h2 class="section-title">Antigravity Guide</h2>
+          <p class="section-desc">Examine layout specifications, keyboard binds, custom tools, and configurations for all four deployment surfaces.</p>
+        </div>
+        
+        <!-- Cards Grid -->
+        <div class="guide-grid" id="guide-grid">
+          <!-- Cards injected dynamically -->
+        </div>
+        
+        <!-- Expanded details element -->
+        <div id="guide-details-wrapper" style="margin-top:2rem;"></div>
+      </section>
+
+      <!-- Google AI Ecosystem Map -->
+      <section id="ecosystem" style="padding-top: 5rem;">
+        <div class="section-header">
+          <span class="section-tag">Concentric Integrations</span>
+          <h2 class="section-title">Google AI Ecosystem Map</h2>
+          <p class="section-desc">Explore the relations between core model layers, platforms, developer toolings, and system infrastructure.</p>
+        </div>
+        
+        <!-- Orbit Viewport wrapper -->
+        <div id="ecosystem-map-wrapper">
+          <!-- Concentric map injected here -->
+        </div>
+      </section>
+
+      <!-- Step-by-Step Interactive Tutorials -->
+      <section id="tutorials" style="padding-top: 5rem;">
+        <div class="section-header">
+          <span class="section-tag">Interactive Sandbox</span>
+          <h2 class="section-title">Interactive Tutorials</h2>
+          <p class="section-desc">Practice real developer flows, run simulated TUI tasks, configure server parameters, and deploy containers.</p>
+        </div>
+        
+        <!-- Sidebar list + Stepper Container -->
+        <div class="tutorials-container" id="tutorials-layout-wrapper">
+          <!-- Stepper and list injected dynamically -->
+        </div>
+      </section>
+
+      <!-- Real-Time AI Trends Tracker -->
+      <section id="trends" style="padding-top: 5rem;">
+        <div class="section-header">
+          <span class="section-tag">Live Intelligence</span>
+          <h2 class="section-title">Trends Tracker</h2>
+          <p class="section-desc">Keep pace with model releases, tool developments, and protocol shifts mapped to actual Antigravity tutorials.</p>
+        </div>
+        
+        <!-- Trends feed dynamic grid -->
+        <div id="trends-feed-wrapper">
+          <!-- Trends injected dynamically -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
