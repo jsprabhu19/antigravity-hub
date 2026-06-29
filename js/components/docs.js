@@ -1,9 +1,9 @@
 // Antigravity Documentation Browser Component
 import { docsData } from '../data/docs-data.js';
 
-export function renderDocsBrowser(activePageId = 'welcome', onPageSelect) {
+export function renderDocsBrowser(activePageId = 'welcome', sidebarHidden = false, onPageSelect, onToggleSidebar) {
   const container = document.createElement('div');
-  container.className = 'docs-browser-container';
+  container.className = `docs-browser-container ${sidebarHidden ? 'sidebar-hidden' : ''}`;
   
   const activePage = docsData[activePageId] || docsData['welcome'];
   
@@ -24,6 +24,9 @@ export function renderDocsBrowser(activePageId = 'welcome', onPageSelect) {
           </button>
           <button class="nav-arrow-btn disabled" title="Go forward">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:16px; height:16px;"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+          </button>
+          <button class="nav-arrow-btn" id="docs-btn-toggle-sidebar" title="Toggle Sidebar">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:16px; height:16px;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-12-3h18c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H3.75c-.621 0-1.125.504-1.125 1.125v12.75c0 .621.504 1.125 1.125 1.125Z" /></svg>
           </button>
         </div>
         
@@ -58,6 +61,7 @@ export function renderDocsBrowser(activePageId = 'welcome', onPageSelect) {
   // 2. Group pages by category for sidebar navigation
   const groups = {};
   Object.keys(docsData).forEach(key => {
+    if (key === 'welcome') return;
     const page = docsData[key];
     if (!groups[page.category]) {
       groups[page.category] = [];
@@ -127,7 +131,7 @@ export function renderDocsBrowser(activePageId = 'welcome', onPageSelect) {
   
   // 5. Back Button (return to welcome)
   const backBtn = container.querySelector('#docs-btn-back');
-  if (activePageId !== 'welcome') {
+  if (activePageId !== 'welcome' && activePageId !== 'home') {
     backBtn.addEventListener('click', () => {
       onPageSelect('welcome');
     });
@@ -135,6 +139,18 @@ export function renderDocsBrowser(activePageId = 'welcome', onPageSelect) {
     backBtn.classList.add('disabled');
     backBtn.style.opacity = '0.3';
     backBtn.style.cursor = 'not-allowed';
+  }
+  
+  // 6. Sidebar Toggle Button
+  const toggleSidebarBtn = container.querySelector('#docs-btn-toggle-sidebar');
+  if (toggleSidebarBtn) {
+    if (sidebarHidden) {
+      toggleSidebarBtn.style.color = 'var(--accent-blue)';
+      toggleSidebarBtn.style.background = 'rgba(79, 143, 247, 0.1)';
+    }
+    toggleSidebarBtn.addEventListener('click', () => {
+      if (onToggleSidebar) onToggleSidebar();
+    });
   }
   
   return container;

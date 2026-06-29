@@ -14,6 +14,7 @@
   
   <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Symbols:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
   <!-- Ambient background glow particles -->
@@ -25,9 +26,14 @@
   <div id="app-layout">
     <!-- Top Frosted Glass Navbar -->
     <header>
-      <div class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-        <div class="brand-logo">AG</div>
-        <div class="brand-text">Antigravity Hub</div>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+          <div class="brand-logo">AG</div>
+          <div class="brand-text">Antigravity Hub</div>
+        </div>
+        <button id="sidebar-collapse-btn" class="sidebar-toggle-btn" style="padding: 0.5rem; display: flex; align-items: center; justify-content: center;" title="Toggle Navigation Sidebar" aria-label="Collapse Navigation Sidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:16px; height:16px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+        </button>
       </div>
       
       <nav class="nav-links">

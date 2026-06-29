@@ -51,7 +51,7 @@ export function initNavbar(onNavigate) {
     let current = 'hero';
     const scrollPos = window.scrollY + 100; // Offset for header
     
-    const sections = ['hero', 'guide', 'ecosystem', 'tutorials', 'trends'];
+    const sections = ['hero', 'guide', 'ecosystem', 'ideas', 'tutorials', 'trends', 'docs'];
     
     sections.forEach(secId => {
       const el = document.getElementById(secId);

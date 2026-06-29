@@ -1,4 +1,5 @@
 // Main Application Controller
+import { docsData } from './data/docs-data.js';
 import { antigravityGuideData } from './data/antigravity-guide.js';
 import { ecosystemData } from './data/ecosystem-data.js';
 import { tutorialsData } from './data/tutorials.js';
@@ -17,6 +18,7 @@ import { initSearchPalette } from './components/search-bar.js';
 import { renderIdeasGenerator } from './components/ideas-generator.js';
 import { initThemeToggle } from './components/theme-toggle.js';
 import { showToast } from './components/toast.js';
+import { showConfirm } from './components/modal.js';
 import { renderDocsBrowser } from './components/docs.js';
 
 // Application State
@@ -28,6 +30,7 @@ const state = {
   activeTrendCategory: 'All',
   activeIdeaFilters: { level: 'Beginner', category: 'All' },
   activeDocsPageId: 'welcome',
+  docsSidebarHidden: false,
   completedTutorials: JSON.parse(localStorage.getItem('completed_tutorials')) || []
 };
 
@@ -40,6 +43,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Wire navigation triggers
   initNavbar(navigateToSection);
   initSidebar(navigateToSection);
+  
+  // Sidebar Collapse toggle
+  const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
+  if (sidebarCollapseBtn) {
+    console.log('Sidebar collapse button found in DOM!');
+    sidebarCollapseBtn.addEventListener('click', () => {
+      console.log('Sidebar collapse button clicked!');
+      const layout = document.getElementById('app-layout');
+      if (layout) {
+        layout.classList.toggle('sidebar-collapsed');
+        console.log('Toggled sidebar-collapsed class. Current classes:', layout.className);
+      } else {
+        console.error('app-layout element not found!');
+      }
+    });
+  } else {
+    console.error('sidebar-collapse-btn not found in DOM!');
+  }
   
   // Initialize Search Command Palette
   initSearchPalette({
@@ -60,22 +81,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetBtn = document.getElementById('reset-progress-btn');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-      if (confirm('Are you sure you want to clear your completion progress and search history?')) {
-        localStorage.removeItem('completed_tutorials');
-        localStorage.removeItem('recent_searches');
-        ideasData.forEach(idea => {
-          localStorage.removeItem(`idea_progress_${idea.id}`);
-        });
-        
-        state.completedTutorials = [];
-        state.activeTutorialId = 'first-agy-session';
-        state.activeTutorialStep = 0;
-        state.activeIdeaFilters = { level: 'Beginner', category: 'All' };
-        
-        renderIdeas();
-        renderTutorials();
-        showToast('All progress has been reset.', 'info');
-      }
+      showConfirm(
+        'Reset Progress',
+        'Are you sure you want to clear your completion progress and search history? This action cannot be undone.',
+        () => {
+          localStorage.removeItem('completed_tutorials');
+          localStorage.removeItem('recent_searches');
+          ideasData.forEach(idea => {
+            localStorage.removeItem(`idea_progress_${idea.id}`);
+          });
+          
+          state.completedTutorials = [];
+          state.activeTutorialId = 'first-agy-session';
+          state.activeTutorialStep = 0;
+          state.activeIdeaFilters = { level: 'Beginner', category: 'All' };
+          
+          renderIdeas();
+          renderTutorials();
+          showToast('All progress has been reset.', 'info');
+        }
+      );
     });
   }
   
@@ -102,6 +127,13 @@ function handleHashRoute() {
     const sections = ['hero', 'guide', 'ecosystem', 'ideas', 'tutorials', 'trends', 'docs'];
     if (sections.includes(hash)) {
       navigateToSection(hash);
+    } else if (hash.startsWith('docs/')) {
+      const pageId = hash.substring(5);
+      if (docsData[pageId]) {
+        state.activeDocsPageId = pageId;
+        renderDocs();
+        navigateToSection('docs');
+      }
     }
   }
 }
@@ -297,9 +329,17 @@ function renderDocs() {
   if (!wrapper) return;
   
   wrapper.innerHTML = '';
-  const browser = renderDocsBrowser(state.activeDocsPageId, (selectedPageId) => {
-    state.activeDocsPageId = selectedPageId;
-    renderDocs();
-  });
+  const browser = renderDocsBrowser(
+    state.activeDocsPageId,
+    state.docsSidebarHidden,
+    (selectedPageId) => {
+      state.activeDocsPageId = selectedPageId;
+      renderDocs();
+    },
+    () => {
+      state.docsSidebarHidden = !state.docsSidebarHidden;
+      renderDocs();
+    }
+  );
   wrapper.appendChild(browser);
 }
