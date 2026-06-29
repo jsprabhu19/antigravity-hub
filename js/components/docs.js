@@ -41,9 +41,9 @@ export function renderDocsBrowser(activePageId = 'welcome', onPageSelect) {
     </div>
     
     <div class="browser-content">
-      <aside class="docs-sidebar">
+      <div class="docs-sidebar">
         <!-- Categories injected here -->
-      </aside>
+      </div>
       
       <article class="docs-content">
         <div class="docs-body-wrapper">
