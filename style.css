@@ -232,7 +232,7 @@ main {
   margin-left: var(--sidebar-width);
   padding: 2rem;
   padding-bottom: 6rem;
-  width: calc(100vw - var(--sidebar-width));
+  min-width: 0;
   overflow-x: hidden;
 }
 
@@ -1778,7 +1778,7 @@ code {
   
   main {
     margin-left: 0;
-    width: 100vw;
+    width: 100%;
   }
   
   .detail-body-grid {
@@ -1859,6 +1859,12 @@ code {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 2.75rem;
+  }
 }
 
 @media (max-width: 1024px) {

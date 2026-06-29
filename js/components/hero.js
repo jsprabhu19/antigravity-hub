@@ -133,32 +133,14 @@ function animateStats() {
   });
 }
 
-// 3. Typewriter heading animation
+// 3. Smooth fade-in slide entrance for hero heading
 function initTypewriter() {
   const title = document.querySelector('.hero-title');
   if (!title) return;
   
-  const text = title.textContent.trim();
-  title.textContent = '';
-  
-  // Separate into letter spans
-  const letters = text.split('').map(char => {
-    const span = document.createElement('span');
-    span.textContent = char;
-    span.style.opacity = '0';
-    span.style.display = 'inline-block';
-    if (char === ' ') span.innerHTML = '&nbsp;';
-    title.appendChild(span);
-    return span;
-  });
-  
-  // Staggered reveal
-  gsap.to(letters, {
-    opacity: 1,
-    y: 0,
-    stagger: 0.03,
-    duration: 0.5,
-    ease: 'power2.out',
-    delay: 0.2
-  });
+  // Smoothly animate the entire heading block to prevent stacking context gradient bugs
+  gsap.fromTo(title,
+    { opacity: 0, y: 15 },
+    { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.2 }
+  );
 }
