@@ -1684,6 +1684,15 @@ code {
   to { transform: translateX(0); opacity: 1; }
 }
 
+@keyframes slide-out-toast {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(120%); opacity: 0; }
+}
+
+.toast.closing {
+  animation: slide-out-toast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
 .toast.success { border-left-color: var(--accent-green); }
 .toast.info { border-left-color: var(--accent-blue); }
 .toast.warning { border-left-color: var(--accent-amber); }

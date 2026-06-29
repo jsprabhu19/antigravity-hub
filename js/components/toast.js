@@ -32,9 +32,9 @@ export function showToast(message, type = 'info') {
   
   // Slide out and remove toast after 3 seconds
   setTimeout(() => {
-    toast.style.animation = 'slide-in-toast 0.3s cubic-bezier(0.16, 1, 0.3, 1) reverse';
-    toast.addEventListener('animationend', () => {
+    toast.classList.add('closing');
+    setTimeout(() => {
       toast.remove();
-    });
+    }, 300);
   }, 3000);
 }
